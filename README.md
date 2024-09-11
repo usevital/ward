@@ -1,2 +1,3 @@
 # ward
-shh secrte
+
+Simple text operations.

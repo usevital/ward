@@ -1,0 +1,66 @@
+* {
+  font-family: Inter, sans-serif;
+}
+
+.main {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 50rem;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  * {
+    margin: 0px;
+  }
+}
+
+.titlerow {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+}
+
+h2,
+h3 {
+  font-weight: 600;
+}
+
+code {
+  font-family: monospace, Inter, sans-serif;
+  background-color: #00000005;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input {
+  border-width: 1.5px;
+  border-color: gray;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 4px;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
