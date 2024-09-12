@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 100%;
 }
 
 .container {
@@ -63,4 +64,5 @@ input {
 .icon {
   width: 2rem;
   height: 2rem;
+  image-rendering: pixelated;
 }
