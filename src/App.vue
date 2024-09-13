@@ -172,7 +172,17 @@ const input_binary = computed(() => {
         the
         <a href="https://notessential.blurry.gay/">NotEssential</a> team</span
       >
-      <span>Inspired by <code>notessential/translator</code></span>
+      <span
+        >Inspired by <a href="https://github.com/notessential/translator"
+          ><code>notessential/translator</code></a
+        ></span
+      >
+      <span
+        >Want an offline or CLI version? You can find them in their
+        <a href="https://github.com/notessentialsite/translator/releases"
+          >GitHub releases.</a
+        ></span
+      >
     </div>
   </main>
 </template>
