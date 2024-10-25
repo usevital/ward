@@ -5,9 +5,9 @@ import type { ManifestOptions } from "vite-plugin-pwa"
  * Defines the default SEO configuration for the website.
  */
 export const seoConfig = {
-  baseURL: "https://example.com", // Change this to your production URL.
+  baseURL: "https://ward-pwa.ward-5br.pages.dev/", // Change this to your production URL.
   description:
-    "Astro PWA Starter is an opionated Astro starter for building robust static websites.", // Change this to be your website's description.
+    "Ward is a tool for simple text operations, like flipping text or becoming cat girl.", // Change this to be your website's description.
   type: "website",
   image: {
     url: "https://picsum.photos/1200/630", // Change this to your website's thumbnail.
@@ -15,7 +15,7 @@ export const seoConfig = {
     width: 1200,
     height: 630,
   },
-  siteName: "Astro PWA Starter", // Change this to your website's name,
+  siteName: "Ward", // Change this to your website's name,
   twitter: {
     card: "summary_large_image",
   },
@@ -25,11 +25,11 @@ export const seoConfig = {
  * Defines the configuration for PWA webmanifest.
  */
 export const manifest: Partial<ManifestOptions> = {
-  name: "Astro PWA Starter", // Change this to your website's name.
-  short_name: "Astro PWA Starter", // Change this to your website's short name.
+  name: "Ward", // Change this to your website's name.
+  short_name: "Ward", // Change this to your website's short name.
   description:
-    "Astro PWA Starter is an opionated Astro starter for building robust static websites.", // Change this to your websites description.
-  theme_color: "#30E130", // Change this to your primary color.
+    "Ward is a tool for simple text operations, like flipping text or becoming cat girl.", // Change this to your websites description.
+  theme_color: "#01b477", // Change this to your primary color.
   background_color: "#ffffff", // Change this to your background color.
   display: "minimal-ui",
   icons: [
