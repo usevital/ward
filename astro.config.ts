@@ -7,6 +7,7 @@ import { VitePWA } from "vite-plugin-pwa"
 
 export default defineConfig({
   site: "https://ward-pwa.ward-5br.pages.dev/",
+  base: "ward",
   integrations: [sitemap(), compress()],
   vite: {
     plugins: [
