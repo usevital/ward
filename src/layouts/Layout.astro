@@ -13,15 +13,9 @@ const { title } = Astro.props
       content="Ward is a tool for simple text operations, like flipping text or becoming a cat girl."
     />
     <meta name="theme-color" content="#01b477" />
+    <link rel="stylesheet" href="style.css" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="manifest" href="manifest.json" />
-    <script>
-      if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("/sw.js", { scope: "/" })
-        })
-      }
-    </script>
   </head>
   <body>
     <nav>
@@ -41,66 +35,3 @@ const { title } = Astro.props
     </footer>
   </body>
 </html>
-
-<style>
-  :root {
-    --primary: #01b477;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  body {
-    display: flex;
-    flex-direction: column;
-    height: 100dvh;
-    margin: 0;
-    padding: 0;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-  nav {
-    padding: 1em;
-    background: #01b477;
-    color: #fff;
-  }
-
-  .nav_inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 1.2em;
-    max-width: 700px;
-    width: 100%;
-    margin: auto;
-  }
-
-  nav .branding {
-    font-weight: 600;
-  }
-
-  main {
-    display: flex;
-    flex-direction: column;
-    flex: 1 auto;
-    padding: 1em;
-    max-width: 700px;
-    width: 100%;
-    margin: 0 auto;
-  }
-
-  footer {
-    padding: 1em;
-    background: rgba(0, 0, 0, 0.2);
-  }
-
-  .footer_inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 700px;
-    width: 100%;
-    margin: auto;
-  }
-</style>

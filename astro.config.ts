@@ -6,13 +6,12 @@ import compress from "astro-compress"
 import { VitePWA } from "vite-plugin-pwa"
 
 export default defineConfig({
-  site: "https://usevital.github.io/ward/",
-  base: "ward",
+  site: "https://ward-pwa.ward-5br.pages.dev/",
   integrations: [sitemap(), compress()],
   vite: {
     plugins: [
       VitePWA({
-        registerType: "autoUpdate",
+        registerType: "prompt",
         workbox: {
           globDirectory: "dist",
           globPatterns: [
