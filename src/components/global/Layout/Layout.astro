@@ -1,32 +1,32 @@
 ---
 // Component imports
-import { SEO } from "astro-seo"
+import { SEO } from "astro-seo";
 
 // Style imports
-import "@style/tailwind.css"
+import "@style/tailwind.css";
 
 // Helper imports
-import { seoConfig } from "@util/seoConfig"
+import { seoConfig } from "@util/seoConfig";
 
 // Props
 export interface Props {
 	/** Title of the page. */
-	title: string
+	title: string;
 
 	/** Specific OpenGraph page title. */
-	ogTitle?: string
+	ogTitle?: string;
 
 	/** Description of the page. */
-	description?: string
+	description?: string;
 
 	/** Image thumbnail for the page. */
 	image?: {
-		url: string
-		alt: string
-	}
+		url: string;
+		alt: string;
+	};
 
 	/** Whether or not to disable indexing */
-	disableIndexing?: boolean
+	disableIndexing?: boolean;
 }
 
 const {
@@ -34,8 +34,8 @@ const {
 	ogTitle,
 	description,
 	image,
-	disableIndexing = false
-} = Astro.props as Props
+	disableIndexing = false,
+} = Astro.props as Props;
 ---
 
 <html lang="en">
@@ -50,20 +50,20 @@ const {
 				basic: {
 					title: ogTitle || title,
 					type: "website",
-					image: seoConfig.image.url || image.url
+					image: seoConfig.image.url || image.url,
 				},
 				image: {
 					width: seoConfig.image.width,
 					height: seoConfig.image.height,
-					alt: seoConfig.image.alt || image.alt
+					alt: seoConfig.image.alt || image.alt,
 				},
 				optional: {
 					siteName: seoConfig.siteName,
-					description: seoConfig.description || description
-				}
+					description: seoConfig.description || description,
+				},
 			}}
 			twitter={{
-				card: seoConfig.twitter.card
+				card: seoConfig.twitter.card,
 			}}
 		/>
 

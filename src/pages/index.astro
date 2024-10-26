@@ -3,7 +3,12 @@ import Layout from "src/layouts/Layout.astro";
 ---
 
 <Layout title="Ward">
-	<input type="text" name="userInput" id="userInput" placeholder="Type your text here...">
+	<input
+		type="text"
+		name="userInput"
+		id="userInput"
+		placeholder="Type your text here..."
+	/>
 	<p>Original text: <span id="originalText"></span></p>
 	<p>Reversed text: <span id="reversedText"></span></p>
 	<p>Uppercase text: <span id="uppercaseText"></span></p>
@@ -23,175 +28,383 @@ import Layout from "src/layouts/Layout.astro";
 </Layout>
 
 <script lang="js">
-function countWords(text) {
-    // Count words by splitting on whitespace and filtering out empty strings
-    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
-}
+	function countWords(text) {
+		// Count words by splitting on whitespace and filtering out empty strings
+		return text
+			.trim()
+			.split(/\s+/)
+			.filter((word) => word.length > 0).length;
+	}
 
-function reverseString(str) {
-    var newString = "";
-    for (var i = str.length - 1; i >= 0; i--) {
-        newString += str[i];
-    }
-    return newString;
-}
+	function reverseString(str) {
+		var newString = "";
+		for (var i = str.length - 1; i >= 0; i--) {
+			newString += str[i];
+		}
+		return newString;
+	}
 
-function caesarCipher(text, shift) {
-    // Ensure the shift is within 0-25
-    shift = shift % 26;
-    
-    // Helper function to shift a character
-    const shiftChar = (char, shift) => {
-        const code = char.charCodeAt(0);
+	function caesarCipher(text, shift) {
+		// Ensure the shift is within 0-25
+		shift = shift % 26;
 
-        // For uppercase letters
-        if (code >= 65 && code <= 90) {
-            return String.fromCharCode(((code - 65 + shift) % 26) + 65);
-        }
-        // For lowercase letters
-        else if (code >= 97 && code <= 122) {
-            return String.fromCharCode(((code - 97 + shift) % 26) + 97);
-        }
-        // Return the character as is if it's not a letter
-        return char;
-    };
-    
-    // Map each character in the text and join the result
-    return text.split("").map(char => shiftChar(char, shift)).join("");
-}
+		// Helper function to shift a character
+		const shiftChar = (char, shift) => {
+			const code = char.charCodeAt(0);
 
-function flipText(text) {
-    // Mapping for flipping characters
-    const flipMap = {
-        'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 
-        'h': 'ɥ', 'i': 'ᴉ', 'j': 'ɾ', 'k': 'ʞ', 'l': 'ʃ', 'm': 'ɯ', 'n': 'u', 
-        'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n', 
-        'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
-        'A': '∀', 'B': 'ᙠ', 'C': 'Ɔ', 'D': 'ᗡ', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': '⅁', 
-        'H': 'H', 'I': 'I', 'J': 'ſ', 'K': 'ʞ', 'L': '˥', 'M': 'W', 'N': 'N', 
-        'O': 'O', 'P': 'Ԁ', 'Q': 'Ọ', 'R': 'ᴚ', 'S': 'S', 'T': '┴', 'U': '∩', 
-        'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
-        '0': '0', '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', 
-        '7': 'ㄥ', '8': '8', '9': '6',
-        '.': '˙', ',': "'", "'": ',', '"': '„', '!': '¡', '?': '¿', 
-        '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{'
-    };
-    
-    // Flip each character and reverse the string
-    return text.split("")
-               .map(char => flipMap[char] || char)  // Flip using the map, or keep the character as is
-               .reverse()                          // Reverse the array
-               .join("");                          // Join to form the final flipped string
-}
+			// For uppercase letters
+			if (code >= 65 && code <= 90) {
+				return String.fromCharCode(((code - 65 + shift) % 26) + 65);
+			}
+			// For lowercase letters
+			else if (code >= 97 && code <= 122) {
+				return String.fromCharCode(((code - 97 + shift) % 26) + 97);
+			}
+			// Return the character as is if it's not a letter
+			return char;
+		};
 
-function zalgoText(text) {
-    // Arrays of combining diacritical marks for the Zalgo effect
-    const zalgoUp = ['\u030d', '\u030e', '\u0304', '\u0305', '\u033f', '\u0311', '\u0306', '\u0310', '\u0352', '\u0357', '\u0351', '\u0307', '\u0308', '\u030a'];
-    const zalgoMiddle = ['\u0315', '\u031b', '\u0340', '\u0341', '\u0358', '\u0321', '\u0322', '\u0327', '\u0328', '\u0334', '\u0335', '\u0336', '\u034f', '\u035c', '\u035d', '\u035e', '\u035f', '\u0360', '\u0362'];
-    const zalgoDown = ['\u0316', '\u0317', '\u0318', '\u0319', '\u031c', '\u031d', '\u031e', '\u031f', '\u0320', '\u0324', '\u0325', '\u0326', '\u0329', '\u032a', '\u032b', '\u032c', '\u032d', '\u032e', '\u032f', '\u0330', '\u0331', '\u0332', '\u0333'];
+		// Map each character in the text and join the result
+		return text
+			.split("")
+			.map((char) => shiftChar(char, shift))
+			.join("");
+	}
 
-    // Helper function to add a random number of marks
-    function applyZalgo(char) {
-        const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
-        let zalgoChar = char;
+	function flipText(text) {
+		// Mapping for flipping characters
+		const flipMap = {
+			a: "ɐ",
+			b: "q",
+			c: "ɔ",
+			d: "p",
+			e: "ǝ",
+			f: "ɟ",
+			g: "ƃ",
+			h: "ɥ",
+			i: "ᴉ",
+			j: "ɾ",
+			k: "ʞ",
+			l: "ʃ",
+			m: "ɯ",
+			n: "u",
+			o: "o",
+			p: "d",
+			q: "b",
+			r: "ɹ",
+			s: "s",
+			t: "ʇ",
+			u: "n",
+			v: "ʌ",
+			w: "ʍ",
+			x: "x",
+			y: "ʎ",
+			z: "z",
+			A: "∀",
+			B: "ᙠ",
+			C: "Ɔ",
+			D: "ᗡ",
+			E: "Ǝ",
+			F: "Ⅎ",
+			G: "⅁",
+			H: "H",
+			I: "I",
+			J: "ſ",
+			K: "ʞ",
+			L: "˥",
+			M: "W",
+			N: "N",
+			O: "O",
+			P: "Ԁ",
+			Q: "Ọ",
+			R: "ᴚ",
+			S: "S",
+			T: "┴",
+			U: "∩",
+			V: "Λ",
+			W: "M",
+			X: "X",
+			Y: "⅄",
+			Z: "Z",
+			"0": "0",
+			"1": "Ɩ",
+			"2": "ᄅ",
+			"3": "Ɛ",
+			"4": "ㄣ",
+			"5": "ϛ",
+			"6": "9",
+			"7": "ㄥ",
+			"8": "8",
+			"9": "6",
+			".": "˙",
+			",": "'",
+			"'": ",",
+			'"': "„",
+			"!": "¡",
+			"?": "¿",
+			"(": ")",
+			")": "(",
+			"[": "]",
+			"]": "[",
+			"{": "}",
+			"}": "{",
+		};
 
-        // Randomly apply 1-5 "up" marks, 1-3 "middle" marks, and 1-5 "down" marks
-        for (let i = 0; i < Math.floor(Math.random() * 5) + 1; i++) {
-            zalgoChar += getRandom(zalgoUp);
-        }
-        for (let i = 0; i < Math.floor(Math.random() * 3) + 1; i++) {
-            zalgoChar += getRandom(zalgoMiddle);
-        }
-        for (let i = 0; i < Math.floor(Math.random() * 5) + 1; i++) {
-            zalgoChar += getRandom(zalgoDown);
-        }
+		// Flip each character and reverse the string
+		return text
+			.split("")
+			.map((char) => flipMap[char] || char) // Flip using the map, or keep the character as is
+			.reverse() // Reverse the array
+			.join(""); // Join to form the final flipped string
+	}
 
-        return zalgoChar;
-    }
+	function zalgoText(text) {
+		// Arrays of combining diacritical marks for the Zalgo effect
+		const zalgoUp = [
+			"\u030d",
+			"\u030e",
+			"\u0304",
+			"\u0305",
+			"\u033f",
+			"\u0311",
+			"\u0306",
+			"\u0310",
+			"\u0352",
+			"\u0357",
+			"\u0351",
+			"\u0307",
+			"\u0308",
+			"\u030a",
+		];
+		const zalgoMiddle = [
+			"\u0315",
+			"\u031b",
+			"\u0340",
+			"\u0341",
+			"\u0358",
+			"\u0321",
+			"\u0322",
+			"\u0327",
+			"\u0328",
+			"\u0334",
+			"\u0335",
+			"\u0336",
+			"\u034f",
+			"\u035c",
+			"\u035d",
+			"\u035e",
+			"\u035f",
+			"\u0360",
+			"\u0362",
+		];
+		const zalgoDown = [
+			"\u0316",
+			"\u0317",
+			"\u0318",
+			"\u0319",
+			"\u031c",
+			"\u031d",
+			"\u031e",
+			"\u031f",
+			"\u0320",
+			"\u0324",
+			"\u0325",
+			"\u0326",
+			"\u0329",
+			"\u032a",
+			"\u032b",
+			"\u032c",
+			"\u032d",
+			"\u032e",
+			"\u032f",
+			"\u0330",
+			"\u0331",
+			"\u0332",
+			"\u0333",
+		];
 
-    // Apply Zalgo effect to each character in the text
-    return text.split("").map(applyZalgo).join("");
-}
+		// Helper function to add a random number of marks
+		function applyZalgo(char) {
+			const getRandom = (arr) => arr[Math.floor(Math.random() * arr.length)];
+			let zalgoChar = char;
 
-function morseCodeText(text) {
-    // Morse code mapping
-    const morseMap = {
-        'a': '.-', 'b': '-...', 'c': '-.-.', 'd': '-..', 'e': '.', 'f': '..-.', 'g': '--.', 
-        'h': '....', 'i': '..', 'j': '.---', 'k': '-.-', 'l': '.-..', 'm': '--', 'n': '-.', 
-        'o': '---', 'p': '.--.', 'q': '--.-', 'r': '.-.', 's': '...', 't': '-', 'u': '..-', 
-        'v': '...-', 'w': '.--', 'x': '-..-', 'y': '-.--', 'z': '--..',
-        '0': '-----', '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', 
-        '6': '-....', '7': '--...', '8': '---..', '9': '----.',
-        ' ': ' ' // Space between words
-    };
+			// Randomly apply 1-5 "up" marks, 1-3 "middle" marks, and 1-5 "down" marks
+			for (let i = 0; i < Math.floor(Math.random() * 5) + 1; i++) {
+				zalgoChar += getRandom(zalgoUp);
+			}
+			for (let i = 0; i < Math.floor(Math.random() * 3) + 1; i++) {
+				zalgoChar += getRandom(zalgoMiddle);
+			}
+			for (let i = 0; i < Math.floor(Math.random() * 5) + 1; i++) {
+				zalgoChar += getRandom(zalgoDown);
+			}
 
-    // Convert each character to Morse code
-    return text.toLowerCase().split("").map(char => morseMap[char] || '').join(" ");
-}
+			return zalgoChar;
+		}
 
-function binaryCodeText(text) {
-    // Convert each character to an 8-bit binary code
-    return text.split("")
-               .map(char => char.charCodeAt(0).toString(2).padStart(8, '0'))
-               .join(" ");
-}
+		// Apply Zalgo effect to each character in the text
+		return text.split("").map(applyZalgo).join("");
+	}
 
-function leetspeakText(text) {
-    // Mapping of characters to Leetspeak equivalents
-    const leetMap = {
-        'a': '4', 'b': '8', 'c': '(', 'd': 'd', 'e': '3', 'f': 'f', 'g': '9',
-        'h': '#', 'i': '1', 'j': 'j', 'k': 'k', 'l': '1', 'm': 'm', 'n': 'n',
-        'o': '0', 'p': 'p', 'q': 'q', 'r': 'r', 's': '5', 't': '7', 'u': 'u',
-        'v': 'v', 'w': 'w', 'x': 'x', 'y': 'y', 'z': '2'
-    };
+	function morseCodeText(text) {
+		// Morse code mapping
+		const morseMap = {
+			a: ".-",
+			b: "-...",
+			c: "-.-.",
+			d: "-..",
+			e: ".",
+			f: "..-.",
+			g: "--.",
+			h: "....",
+			i: "..",
+			j: ".---",
+			k: "-.-",
+			l: ".-..",
+			m: "--",
+			n: "-.",
+			o: "---",
+			p: ".--.",
+			q: "--.-",
+			r: ".-.",
+			s: "...",
+			t: "-",
+			u: "..-",
+			v: "...-",
+			w: ".--",
+			x: "-..-",
+			y: "-.--",
+			z: "--..",
+			"0": "-----",
+			"1": ".----",
+			"2": "..---",
+			"3": "...--",
+			"4": "....-",
+			"5": ".....",
+			"6": "-....",
+			"7": "--...",
+			"8": "---..",
+			"9": "----.",
+			" ": " ", // Space between words
+		};
 
-    // Convert each character to Leetspeak
-    return text.toLowerCase().split("").map(char => leetMap[char] || char).join("");
-}
+		// Convert each character to Morse code
+		return text
+			.toLowerCase()
+			.split("")
+			.map((char) => morseMap[char] || "")
+			.join(" ");
+	}
 
-function uwuText(text) {
-    // Replace certain characters for UwU effect
-    let uwuText = text
-        .replace(/r|l/g, "w")          // Replace "r" and "l" with "w"
-        .replace(/R|L/g, "W")          // Replace "R" and "L" with "W"
-        .replace(/n([aeiou])/gi, "ny$1")  // Replace "n" followed by a vowel with "ny" sound
-        .replace(/ove/g, "uv")         // Replace "ove" with "uv"
-        .replace(/\bthe\b/gi, "da")    // Replace "the" with "da"
-        .replace(/you/gi, "u")         // Replace "you" with "u"
-        .replace(/!+/g, " owo")        // Add "owo" to exclamations
+	function binaryCodeText(text) {
+		// Convert each character to an 8-bit binary code
+		return text
+			.split("")
+			.map((char) => char.charCodeAt(0).toString(2).padStart(8, "0"))
+			.join(" ");
+	}
 
-    // Add "UwU" or similar phrases randomly at the end
-    const endings = [" UwU", " owo", " >w<", " ~w~"];
-    uwuText += endings[Math.floor(Math.random() * endings.length)];
-    
-    return uwuText;
-}
+	function leetspeakText(text) {
+		// Mapping of characters to Leetspeak equivalents
+		const leetMap = {
+			a: "4",
+			b: "8",
+			c: "(",
+			d: "d",
+			e: "3",
+			f: "f",
+			g: "9",
+			h: "#",
+			i: "1",
+			j: "j",
+			k: "k",
+			l: "1",
+			m: "m",
+			n: "n",
+			o: "0",
+			p: "p",
+			q: "q",
+			r: "r",
+			s: "5",
+			t: "7",
+			u: "u",
+			v: "v",
+			w: "w",
+			x: "x",
+			y: "y",
+			z: "2",
+		};
 
-document.getElementById("userInput").addEventListener("input", (event) => {
-	document.getElementById("originalText").innerText = event.target.value
-	document.getElementById("reversedText").innerText = reverseString(event.target.value)
-	document.getElementById("caeserCipherText").innerText = caesarCipher(event.target.value, 6)
-	document.getElementById("flippedText").innerText = flipText(event.target.value)
-	document.getElementById("zalgoText").innerText = zalgoText(event.target.value)
-	document.getElementById("morseCodeText").innerText = morseCodeText(event.target.value)
-	document.getElementById("binaryCodeText").innerText = binaryCodeText(event.target.value)
-	document.getElementById("leetspeakText").innerText = leetspeakText(event.target.value)
-	document.getElementById("uwuText").innerText = uwuText(event.target.value)
-	document.getElementById("uppercaseText").innerText = event.target.value.toUpperCase()
-	document.getElementById("lowercaseText").innerText = event.target.value.toLowerCase()
+		// Convert each character to Leetspeak
+		return text
+			.toLowerCase()
+			.split("")
+			.map((char) => leetMap[char] || char)
+			.join("");
+	}
 
-	document.getElementById("wordCount").innerText = countWords(event.target.value);
-	document.getElementById("charCount").innerText = event.target.value.length;
-})	
+	function uwuText(text) {
+		// Replace certain characters for UwU effect
+		let uwuText = text
+			.replace(/r|l/g, "w") // Replace "r" and "l" with "w"
+			.replace(/R|L/g, "W") // Replace "R" and "L" with "W"
+			.replace(/n([aeiou])/gi, "ny$1") // Replace "n" followed by a vowel with "ny" sound
+			.replace(/ove/g, "uv") // Replace "ove" with "uv"
+			.replace(/\bthe\b/gi, "da") // Replace "the" with "da"
+			.replace(/you/gi, "u") // Replace "you" with "u"
+			.replace(/!+/g, " owo"); // Add "owo" to exclamations
+
+		// Add "UwU" or similar phrases randomly at the end
+		const endings = [" UwU", " owo", " >w<", " ~w~"];
+		uwuText += endings[Math.floor(Math.random() * endings.length)];
+
+		return uwuText;
+	}
+
+	document.getElementById("userInput").addEventListener("input", (event) => {
+		document.getElementById("originalText").innerText = event.target.value;
+		document.getElementById("reversedText").innerText = reverseString(
+			event.target.value,
+		);
+		document.getElementById("caeserCipherText").innerText = caesarCipher(
+			event.target.value,
+			6,
+		);
+		document.getElementById("flippedText").innerText = flipText(
+			event.target.value,
+		);
+		document.getElementById("zalgoText").innerText = zalgoText(
+			event.target.value,
+		);
+		document.getElementById("morseCodeText").innerText = morseCodeText(
+			event.target.value,
+		);
+		document.getElementById("binaryCodeText").innerText = binaryCodeText(
+			event.target.value,
+		);
+		document.getElementById("leetspeakText").innerText = leetspeakText(
+			event.target.value,
+		);
+		document.getElementById("uwuText").innerText = uwuText(event.target.value);
+		document.getElementById("uppercaseText").innerText =
+			event.target.value.toUpperCase();
+		document.getElementById("lowercaseText").innerText =
+			event.target.value.toLowerCase();
+
+		document.getElementById("wordCount").innerText = countWords(
+			event.target.value,
+		);
+		document.getElementById("charCount").innerText = event.target.value.length;
+	});
 </script>
 
 <style>
 	input {
-		padding: .5em;
+		padding: 0.5em;
 	}
 
 	p {
-		padding: 0 .5em;
-        margin: .5em 0 0 0;
+		padding: 0 0.5em;
+		margin: 0.5em 0 0 0;
 	}
 </style>
