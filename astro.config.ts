@@ -5,17 +5,13 @@ import sitemap from "@astrojs/sitemap"
 import compress from "astro-compress"
 import { VitePWA } from "vite-plugin-pwa"
 
-// Helper imports
-import { manifest, seoConfig } from "./utils/seoConfig"
-
 export default defineConfig({
-  site: seoConfig.baseURL,
+  site: "https://ward-pwa.ward-5br.pages.dev/",
   integrations: [sitemap(), compress()],
   vite: {
     plugins: [
       VitePWA({
         registerType: "autoUpdate",
-        manifest,
         workbox: {
           globDirectory: "dist",
           globPatterns: [
