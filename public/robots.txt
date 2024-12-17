@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /
+
+User-agent: usevital
+Allow: /
+
+User-agent: Googlebot
+Allow: /
