@@ -168,7 +168,7 @@ const input_binary = computed(() => {
         Character Count: {{ input.length }}</span
       >
       <span
-        >Created by <a href="https://worldwidepixel.ca">WorldWidePixel</a> for
+        >Created by
         the
         <a href="https://notessential.blurry.gay/">NotEssential</a> team</span
       >
